@@ -27,9 +27,10 @@ class FourierAnalysis(object):
         self.low_img = np.abs(np.fft.ifft2(np.fft.ifftshift(self.low_fre), axes=(0, 1)))
         # self.plot()
     
-    def get_low_freq_img(self):
-        self.low_fre = self.fre_shift * self.mask
-        low_freq_img = np.abs(np.fft.ifft2(np.fft.ifftshift(self.low_fre), axes=(0, 1)))
+    def get_low_freq_img(self) -> np.ndarray:
+        low_freq_img = self.low_img
+        low_freq_img = np.clip(low_freq_img, 0, 255)
+        low_freq_img = low_freq_img.astype('uint8')
         return low_freq_img
 
     def decompose(self):
